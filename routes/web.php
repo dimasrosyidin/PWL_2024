@@ -1,6 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Route;      
+use App\Http\Controllers\PhotoController;
 
 //Praktikum 1
     Route::get('/hello', function () {
@@ -40,7 +44,27 @@ use Illuminate\Support\Facades\Route;
         Route::get('/user/{name?}', function ($name='Dimas') {
             return 'Nama saya '.$name;
             });
-            
+
+//Praktikum 2
+use App\Http\Controllers\WelcomeController;
+
+Route::get('/hello', [WelcomeController::class,'hello']);
+
+Route::get('/index', [HomeController::class,'index']);
+
+Route::get('/about', [AboutController::class,'about']);
+
+Route::get('/articles/{id}', [ArticleController::class,'articles']);
+
+Route::resource('photos', PhotoController::class);
+
+Route::resource('photos', PhotoController::class)->only([
+    'index', 'show'
+   ]);
+   
+Route::resource('photos', PhotoController::class)->except([
+    'create', 'store', 'update', 'destroy'
+   ]);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
